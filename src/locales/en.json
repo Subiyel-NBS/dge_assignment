@@ -1,0 +1,233 @@
+{
+  "common": {
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit Application",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "required": "This field is required",
+    "cancel": "Cancel",
+    "accept": "Accept",
+    "edit": "Edit",
+    "discard": "Discard",
+    "helpMeWrite": "Help Me Write",
+    "backToHome": "Back to Home"
+  },
+  "navigation": {
+    "step1": "Personal Information",
+    "step2": "Family & Financial Info",
+    "step3": "Situation Descriptions",
+    "home": "Apply for Support",
+    "terms": "Terms & Conditions",
+    "contact": "Contact Us"
+  },
+  "organization": {
+    "name": "Social Support Department",
+    "department": "Ministry of Social Affairs",
+    "address": "123 Government Street, Capital City, 12345",
+    "phone": "+1-800-GOV-HELP",
+    "email": "support@socialsupport.gov",
+    "hours": "Mon-Fri: 9:00 AM - 5:00 PM",
+    "details": "Contact Information",
+    "rights": "All rights reserved"
+  },
+  "personalInfo": {
+    "title": "Personal Information",
+    "description": "Please provide your personal details",
+    "name": "Full Name",
+    "nationalId": "National ID",
+    "dateOfBirth": "Date of Birth",
+    "gender": "Gender",
+    "genderOptions": {
+      "male": "Male",
+      "female": "Female",
+      "other": "Other"
+    },
+    "address": "Address",
+    "city": "City",
+    "state": "State/Province",
+    "country": "Country",
+    "phone": "Phone Number",
+    "email": "Email Address"
+  },
+  "familyInfo": {
+    "title": "Family & Financial Information",
+    "description": "Please provide information about your family and financial situation",
+    "maritalStatus": "Marital Status",
+    "maritalOptions": {
+      "single": "Single",
+      "married": "Married",
+      "divorced": "Divorced",
+      "widowed": "Widowed"
+    },
+    "dependents": "Number of Dependents",
+    "employmentStatus": "Employment Status",
+    "employmentOptions": {
+      "employed": "Employed",
+      "unemployed": "Unemployed",
+      "self-employed": "Self-Employed",
+      "retired": "Retired",
+      "student": "Student"
+    },
+    "monthlyIncome": "Monthly Income",
+    "housingStatus": "Housing Status",
+    "housingOptions": {
+      "owned": "Owned",
+      "rented": "Rented",
+      "staying_with_family": "Staying with Family",
+      "homeless": "Homeless"
+    }
+  },
+  "situationInfo": {
+    "title": "Situation Descriptions",
+    "description": "Please describe your current situation",
+    "financialSituation": "Current Financial Situation",
+    "financialSituationPlaceholder": "Describe your current financial challenges and circumstances...",
+    "employmentCircumstances": "Employment Circumstances",
+    "employmentCircumstancesPlaceholder": "Describe your employment situation and any challenges you're facing...",
+    "reasonForApplying": "Reason for Applying",
+    "reasonForApplyingPlaceholder": "Explain why you need financial assistance and how it will help you..."
+  },
+  "ai": {
+    "generating": "Generating suggestion...",
+    "suggestion": "AI Suggestion",
+    "error": "Failed to generate suggestion. Please try again.",
+    "timeout": "Request timed out. Please try again.",
+    "acceptSuggestion": "Accept this suggestion?",
+    "editBeforeAccepting": "You can edit the text before accepting it."
+  },
+  "validation": {
+    "nameRequired": "Full name is required",
+    "nationalIdRequired": "National ID is required",
+    "dateOfBirthRequired": "Date of birth is required",
+    "addressRequired": "Address is required",
+    "cityRequired": "City is required",
+    "stateRequired": "State/Province is required",
+    "countryRequired": "Country is required",
+    "phoneRequired": "Phone number is required",
+    "emailRequired": "Email address is required",
+    "emailInvalid": "Please enter a valid email address",
+    "phoneInvalid": "Please enter a valid phone number",
+    "nationalIdInvalid": "Please enter a valid national ID",
+    "incomeInvalid": "Please enter a valid income amount",
+    "dependentsInvalid": "Please enter a valid number of dependents"
+  },
+  "success": {
+    "title": "Application Submitted Successfully",
+    "message": "Your application has been submitted and is being reviewed. You will be contacted within 5-7 business days.",
+    "referenceNumber": "Reference Number"
+  },
+  "terms": {
+    "title": "Terms & Conditions",
+    "lastUpdated": "Last Updated",
+    "acceptance": {
+      "title": "Acceptance of Terms",
+      "content": "By accessing and using this Social Support Portal, you agree to be bound by these Terms and Conditions. If you do not agree to these terms, please do not use this service."
+    },
+    "eligibility": {
+      "title": "Eligibility Requirements",
+      "content": "To apply for social support benefits, you must meet the following requirements:",
+      "requirements": {
+        "age": "Be at least 18 years of age or an emancipated minor",
+        "citizenship": "Be a citizen or legal permanent resident",
+        "income": "Meet income and asset requirements as defined by current guidelines",
+        "documentation": "Provide accurate and complete documentation as requested"
+      }
+    },
+    "application": {
+      "title": "Application Process",
+      "content": "All applications are subject to review and verification. Processing times may vary based on application volume and complexity.",
+      "warning": {
+        "title": "Important Notice",
+        "content": "Providing false or misleading information may result in denial of benefits and potential legal consequences."
+      }
+    },
+    "privacy": {
+      "title": "Privacy and Data Protection",
+      "content": "We are committed to protecting your personal information. The following data is collected during the application process:",
+      "dataCollection": {
+        "title": "Data We Collect:",
+        "personal": "Personal identification information",
+        "financial": "Financial and employment information",
+        "contact": "Contact information and communication preferences",
+        "circumstances": "Information about your current circumstances and needs"
+      }
+    },
+    "aiAssistance": {
+      "title": "AI Writing Assistance",
+      "content": "This portal includes AI-powered writing assistance to help you complete your application. This feature is optional and provided for your convenience.",
+      "disclaimer": {
+        "title": "AI Disclaimer",
+        "content": "AI-generated suggestions are provided as guidance only. You are responsible for reviewing and ensuring the accuracy of all information in your application."
+      }
+    },
+    "obligations": {
+      "title": "Your Obligations",
+      "content": "By using this service, you agree to:",
+      "accuracy": "Provide accurate and truthful information",
+      "updates": "Notify us of any changes to your circumstances",
+      "cooperation": "Cooperate with verification processes",
+      "misuse": "Not misuse or abuse this service or system"
+    },
+    "contact": {
+      "title": "Contact Information",
+      "content": "If you have questions about these terms or need assistance with your application, please contact us:",
+      "phone": "Phone",
+      "email": "Email"
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Get in touch with our support team for assistance with your application or general inquiries.",
+    "information": {
+      "title": "Contact Information"
+    },
+    "methods": {
+      "phone": {
+        "title": "Phone Support",
+        "description": "Call us during business hours for immediate assistance"
+      },
+      "email": {
+        "title": "Email Support",
+        "description": "Send us an email and we'll respond within 24 hours"
+      },
+      "address": {
+        "title": "Visit Our Office",
+        "description": "Visit us in person during business hours"
+      }
+    },
+    "hours": {
+      "title": "Office Hours",
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday",
+      "closed": "Closed"
+    },
+    "emergency": {
+      "title": "Emergency Assistance",
+      "content": "If you are experiencing a crisis or emergency situation, please contact our emergency hotline immediately:",
+      "number": "Emergency: 911 or 1-800-CRISIS"
+    },
+    "form": {
+      "title": "Send us a Message",
+      "name": "Full Name",
+      "email": "Email Address",
+      "subject": "Subject",
+      "message": "Message",
+      "messagePlaceholder": "Please describe your question or concern in detail...",
+      "submit": "Send Message",
+      "subjectRequired": "Subject is required",
+      "messageRequired": "Message is required",
+      "success": {
+        "title": "Message Sent Successfully",
+        "message": "Thank you for contacting us. We will respond to your message within 24 hours.",
+        "sendAnother": "Send Another Message"
+      }
+    }
+  }
+}
