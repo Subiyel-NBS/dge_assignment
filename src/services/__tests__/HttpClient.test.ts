@@ -118,6 +118,7 @@ describe('HttpClient', () => {
         message: 'Request failed with status code 404',
       };
 
+      (axios.isAxiosError as jest.Mock).mockReturnValue(true);
       mockAxiosInstance.get.mockRejectedValue(mockError);
 
       await expect(httpClient.get('/users/999')).rejects.toEqual({
@@ -235,6 +236,7 @@ describe('HttpClient', () => {
         message: 'timeout of 30000ms exceeded',
       };
 
+      (axios.isAxiosError as jest.Mock).mockReturnValue(true);
       mockAxiosInstance.get.mockRejectedValue(mockError);
 
       await expect(httpClient.get('/slow-endpoint')).rejects.toEqual({
@@ -249,6 +251,7 @@ describe('HttpClient', () => {
         message: 'Network Error',
       };
 
+      (axios.isAxiosError as jest.Mock).mockReturnValue(true);
       mockAxiosInstance.get.mockRejectedValue(mockError);
 
       await expect(httpClient.get('/endpoint')).rejects.toEqual({
@@ -267,6 +270,7 @@ describe('HttpClient', () => {
         message: 'Request failed with status code 400',
       };
 
+      (axios.isAxiosError as jest.Mock).mockReturnValue(true);
       mockAxiosInstance.post.mockRejectedValue(mockError);
 
       await expect(httpClient.post('/users', {})).rejects.toEqual({
@@ -286,6 +290,7 @@ describe('HttpClient', () => {
         message: 'Internal Server Error',
       };
 
+      (axios.isAxiosError as jest.Mock).mockReturnValue(true);
       mockAxiosInstance.get.mockRejectedValue(mockError);
 
       await expect(httpClient.get('/endpoint')).rejects.toEqual({
@@ -298,6 +303,7 @@ describe('HttpClient', () => {
     it('should handle non-axios errors', async () => {
       const mockError = new Error('Unknown error');
 
+      (axios.isAxiosError as jest.Mock).mockReturnValue(false);
       mockAxiosInstance.get.mockRejectedValue(mockError);
 
       await expect(httpClient.get('/endpoint')).rejects.toEqual({
