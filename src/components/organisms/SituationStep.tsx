@@ -13,7 +13,7 @@ interface SituationStepProps {
 export const SituationStep: React.FC<SituationStepProps> = ({ form }) => {
   const { t } = useTranslation();
   const { register, formState: { errors }, watch, setValue } = form;
-  const { isLoading, generateSuggestion } = useOpenAI();
+  const { generateSuggestion, isFieldLoading } = useOpenAI();
 
   const watchedValues = watch();
 
@@ -53,7 +53,7 @@ export const SituationStep: React.FC<SituationStepProps> = ({ form }) => {
             </label>
             <AIAssistanceButton
               onClick={() => handleAIAssistance('financialSituation')}
-              isLoading={isLoading}
+              isLoading={isFieldLoading('financialSituation')}
             />
           </div>
           <FormField
@@ -75,7 +75,7 @@ export const SituationStep: React.FC<SituationStepProps> = ({ form }) => {
             </label>
             <AIAssistanceButton
               onClick={() => handleAIAssistance('employmentCircumstances')}
-              isLoading={isLoading}
+              isLoading={isFieldLoading('employmentCircumstances')}
             />
           </div>
           <FormField
@@ -97,7 +97,7 @@ export const SituationStep: React.FC<SituationStepProps> = ({ form }) => {
             </label>
             <AIAssistanceButton
               onClick={() => handleAIAssistance('reasonForApplying')}
-              isLoading={isLoading}
+              isLoading={isFieldLoading('reasonForApplying')}
             />
           </div>
           <FormField

@@ -39,8 +39,9 @@ export interface FormState {
 }
 
 export interface AIAssistanceState {
-  isLoading: boolean;
+  loadingFields: Record<string, boolean>;
   suggestion: string;
+  currentField: string | null;
   isPopupOpen: boolean;
   error: string | null;
 }

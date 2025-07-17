@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 import { RootState } from "../store";
 import {
-  setLoading,
+  setFieldLoading,
   setSuggestion,
   setError,
   setPopupOpen,
@@ -29,7 +29,7 @@ export const useOpenAI = () => {
       currentValue: string = "",
       userContext: string = ""
     ) => {
-      dispatch(setLoading(true));
+      dispatch(setFieldLoading({ fieldName: fieldType, isLoading: true }));
       dispatch(setError(null));
 
       const prompts = {
@@ -49,7 +49,7 @@ export const useOpenAI = () => {
 
         if (response.data.success && response.data.response) {
           const suggestion = response.data.response.trim();
-          dispatch(setSuggestion(suggestion));
+          dispatch(setSuggestion({ suggestion, fieldName: fieldType }));
           dispatch(setPopupOpen(true));
         } else {
           const errorMessage = "No suggestion received";
@@ -74,7 +74,7 @@ export const useOpenAI = () => {
         dispatch(setError(errorMessage));
         toast.error(errorMessage);
       } finally {
-        dispatch(setLoading(false));
+        dispatch(setFieldLoading({ fieldName: fieldType, isLoading: false }));
       }
     },
     [dispatch]
@@ -96,6 +96,10 @@ export const useOpenAI = () => {
     dispatch(clearSuggestion());
   }, [dispatch]);
 
+  const isFieldLoading = useCallback((fieldName: string) => {
+    return aiState.loadingFields[fieldName] || false;
+  }, [aiState.loadingFields]);
+
   return {
     ...aiState,
     generateSuggestion,
@@ -103,5 +107,6 @@ export const useOpenAI = () => {
     closePopup,
     clearError,
     clearSuggestion: clearSuggestionCallback,
+    isFieldLoading,
   };
 };

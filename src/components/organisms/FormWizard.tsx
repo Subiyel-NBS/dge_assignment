@@ -19,7 +19,7 @@ interface FormWizardProps {
 export const FormWizard: React.FC<FormWizardProps> = ({ onSuccess }) => {
   const { t } = useTranslation();
   const { formState, updatePersonalData, updateFamilyData, updateSituationData, nextStep, previousStep } = useFormData();
-  const { isPopupOpen, suggestion, closePopup, clearSuggestion } = useOpenAI();
+  const { isPopupOpen, suggestion, currentField, closePopup, clearSuggestion } = useOpenAI();
   const { submitForm } = useFormSubmission();
 
 
@@ -108,12 +108,9 @@ export const FormWizard: React.FC<FormWizardProps> = ({ onSuccess }) => {
   };
 
   const handleSuggestionAccept = (text: string) => {
-    if (isPopupOpen && suggestion) {
-      // We'll use a different approach - the SituationStep component will handle this
-      // For now, we'll assume the last field that triggered AI assistance
-      const fieldName = 'reasonForApplying'; // This should be dynamically determined
-      situationForm.setValue(fieldName as keyof SituationDescriptions, text);
-      updateSituationData({ [fieldName]: text } as Partial<SituationDescriptions>);
+    if (isPopupOpen && suggestion && currentField) {
+      situationForm.setValue(currentField as keyof SituationDescriptions, text);
+      updateSituationData({ [currentField]: text } as Partial<SituationDescriptions>);
     }
     clearSuggestion();
   };

@@ -2,8 +2,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AIAssistanceState } from '@/types/form';
 
 const initialState: AIAssistanceState = {
-  isLoading: false,
+  loadingFields: {},
   suggestion: '',
+  currentField: null,
   isPopupOpen: false,
   error: null,
 };
@@ -12,11 +13,17 @@ const aiSlice = createSlice({
   name: 'ai',
   initialState,
   reducers: {
-    setLoading: (state, action: PayloadAction<boolean>) => {
-      state.isLoading = action.payload;
+    setFieldLoading: (state, action: PayloadAction<{ fieldName: string; isLoading: boolean }>) => {
+      const { fieldName, isLoading } = action.payload;
+      if (isLoading) {
+        state.loadingFields[fieldName] = true;
+      } else {
+        delete state.loadingFields[fieldName];
+      }
     },
-    setSuggestion: (state, action: PayloadAction<string>) => {
-      state.suggestion = action.payload;
+    setSuggestion: (state, action: PayloadAction<{ suggestion: string; fieldName: string }>) => {
+      state.suggestion = action.payload.suggestion;
+      state.currentField = action.payload.fieldName;
     },
     setPopupOpen: (state, action: PayloadAction<boolean>) => {
       state.isPopupOpen = action.payload;
@@ -26,13 +33,14 @@ const aiSlice = createSlice({
     },
     clearSuggestion: (state) => {
       state.suggestion = '';
+      state.currentField = null;
       state.error = null;
     },
   },
 });
 
 export const {
-  setLoading,
+  setFieldLoading,
   setSuggestion,
   setPopupOpen,
   setError,
