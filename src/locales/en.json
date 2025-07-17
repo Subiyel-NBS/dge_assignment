@@ -229,5 +229,18 @@
         "sendAnother": "Send Another Message"
       }
     }
+  },
+  "restoreProgress": {
+    "title": "Restore Progress",
+    "description": "We found saved progress from your previous session.",
+    "lastSaved": "Last saved: {{date}}",
+    "restore": "Restore Progress",
+    "startFresh": "Start Fresh"
+  },
+  "clearProgress": {
+    "button": "Clear Progress",
+    "confirmMessage": "Are you sure?",
+    "confirm": "Yes",
+    "cancel": "No"
   }
 }

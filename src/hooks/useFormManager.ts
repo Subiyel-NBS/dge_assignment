@@ -5,6 +5,34 @@ import { PersonalInfo, FamilyFinancialInfo, SituationDescriptions } from '../typ
 
 const STORAGE_KEY = 'social-support-form-data';
 
+// Initial form values
+const initialPersonalInfo: PersonalInfo = {
+  name: '',
+  nationalId: '',
+  dateOfBirth: '',
+  gender: 'male',
+  address: '',
+  city: '',
+  state: '',
+  country: '',
+  phone: '',
+  email: '',
+};
+
+const initialFamilyInfo: FamilyFinancialInfo = {
+  maritalStatus: 'single',
+  dependents: 0,
+  employmentStatus: 'unemployed',
+  monthlyIncome: 0,
+  housingStatus: 'rented',
+};
+
+const initialSituationInfo: SituationDescriptions = {
+  financialSituation: '',
+  employmentCircumstances: '',
+  reasonForApplying: '',
+};
+
 export const useFormManager = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [hasCheckedStorage, setHasCheckedStorage] = useState(false);
@@ -12,14 +40,17 @@ export const useFormManager = () => {
 
   // Initialize forms
   const personalForm = useForm<PersonalInfo>({
+    defaultValues: initialPersonalInfo,
     mode: 'onChange',
   });
 
   const familyForm = useForm<FamilyFinancialInfo>({
+    defaultValues: initialFamilyInfo,
     mode: 'onChange',
   });
 
   const situationForm = useForm<SituationDescriptions>({
+    defaultValues: initialSituationInfo,
     mode: 'onChange',
   });
 
@@ -147,9 +178,11 @@ export const useFormManager = () => {
       console.error('Failed to clear current step:', error);
     }
     
-    personalForm.reset();
-    familyForm.reset();
-    situationForm.reset();
+    // Reset forms to initial values
+    personalForm.reset(initialPersonalInfo);
+    familyForm.reset(initialFamilyInfo);
+    situationForm.reset(initialSituationInfo);
+    
     setCurrentStep(0);
     setShowRestoreModal(false);
   }, [personalPersistence, familyPersistence, situationPersistence, personalForm, familyForm, situationForm]);
