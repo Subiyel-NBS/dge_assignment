@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface ProgressBarProps {
   currentStep: number;
@@ -9,15 +9,15 @@ interface ProgressBarProps {
 export const ProgressBar: React.FC<ProgressBarProps> = ({
   currentStep,
   totalSteps,
-  className = '',
+  className = "",
 }) => {
   const progress = ((currentStep + 1) / totalSteps) * 100;
 
   return (
     <div className={`w-full ${className}`}>
-      <div className="bg-gray-200 rounded-full h-2">
+      <div className="bg-green-200 rounded-full h-2">
         <div
-          className="bg-primary-600 h-2 rounded-full transition-all duration-300 ease-out"
+          className="bg-green-500 h-2 rounded-full transition-all duration-300 ease-out"
           style={{ width: `${progress}%` }}
           role="progressbar"
           aria-valuenow={currentStep + 1}

@@ -25,9 +25,9 @@
   "organization": {
     "name": "Social Support Department",
     "department": "Ministry of Social Affairs",
-    "address": "123 Government Street, Capital City, 12345",
-    "phone": "+1-800-GOV-HELP",
-    "email": "support@socialsupport.gov",
+    "address": "123 Street, Capital City, 12345",
+    "phone": "+1-800-123-123",
+    "email": "support@support.gov",
     "hours": "Mon-Fri: 9:00 AM - 5:00 PM",
     "details": "Contact Information",
     "rights": "All rights reserved"
