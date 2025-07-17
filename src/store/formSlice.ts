@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { FormState, FormData, PersonalInfo, FamilyFinancialInfo, SituationDescriptions } from '@/types/form';
+import { FormState, FormData, PersonalInfo, FamilyFinancialInfo, SituationDescriptions } from '../types/form';
 
 const initialFormData: FormData = {
   personalInfo: {

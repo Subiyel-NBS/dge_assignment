@@ -6,6 +6,7 @@ import { Layout } from './components/organisms/Layout';
 import { HomePage } from './components/pages/HomePage';
 import { TermsPage } from './components/pages/TermsPage';
 import { ContactPage } from './components/pages/ContactPage';
+import { ToasterProvider } from './components/providers/ToasterProvider';
 import './utils/i18n';
 import './App.css';
 
@@ -20,6 +21,7 @@ function App() {
             <Route path="/contact" element={<ContactPage />} />
           </Routes>
         </Layout>
+        <ToasterProvider />
       </Router>
     </Provider>
   );
