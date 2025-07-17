@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AIAssistanceState } from '@/types/form';
+import { AIAssistanceState } from '../types/form';
 
 const initialState: AIAssistanceState = {
   loadingFields: {},

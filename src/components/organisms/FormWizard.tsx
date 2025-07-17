@@ -1,16 +1,14 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { ProgressBar } from '../atoms/ProgressBar';
 import { StepNavigation } from '../molecules/StepNavigation';
 import { AISuggestionPopup } from '../molecules/AISuggestionPopup';
+import { RestoreProgressModal } from '../molecules/RestoreProgressModal';
 import { PersonalInfoStep } from './PersonalInfoStep';
 import { FamilyInfoStep } from './FamilyInfoStep';
 import { SituationStep } from './SituationStep';
-import { useFormData } from '../../hooks/useFormData';
+import { useFormManager } from '../../hooks/useFormManager';
 import { useOpenAI } from '../../hooks/useOpenAI';
-import { useFormSubmission } from '../../hooks/useFormSubmission';
-import { PersonalInfo, FamilyFinancialInfo, SituationDescriptions } from '../../types/form';
 
 interface FormWizardProps {
   onSuccess: (referenceNumber: string) => void;
@@ -18,99 +16,51 @@ interface FormWizardProps {
 
 export const FormWizard: React.FC<FormWizardProps> = ({ onSuccess }) => {
   const { t } = useTranslation();
-  const { formState, updatePersonalData, updateFamilyData, updateSituationData, nextStep, previousStep } = useFormData();
   const { isPopupOpen, suggestion, currentField, closePopup, clearSuggestion } = useOpenAI();
-  const { submitForm } = useFormSubmission();
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  
+  const {
+    personalForm,
+    familyForm,
+    situationForm,
+    currentStep,
+    handleNext,
+    handlePrevious,
+    handleSubmit,
+    handleRestoreProgress,
+    handleStartFresh,
+    showRestoreModal,
+    canProceed,
+  } = useFormManager();
 
-
-  const personalForm = useForm<PersonalInfo>({
-    defaultValues: formState.formData.personalInfo,
-    mode: 'onChange',
-  });
-
-  const familyForm = useForm<FamilyFinancialInfo>({
-    defaultValues: formState.formData.familyFinancialInfo,
-    mode: 'onChange',
-  });
-
-  const situationForm = useForm<SituationDescriptions>({
-    defaultValues: formState.formData.situationDescriptions,
-    mode: 'onChange',
-  });
-
-  React.useEffect(() => {
-    personalForm.reset(formState.formData.personalInfo);
-  }, [formState.formData.personalInfo, personalForm]);
-
-  React.useEffect(() => {
-    familyForm.reset(formState.formData.familyFinancialInfo);
-  }, [formState.formData.familyFinancialInfo, familyForm]);
-
-  React.useEffect(() => {
-    situationForm.reset(formState.formData.situationDescriptions);
-  }, [formState.formData.situationDescriptions, situationForm]);
-
-  const getCurrentForm = () => {
-    switch (formState.currentStep) {
-      case 0:
-        return personalForm;
-      case 1:
-        return familyForm;
-      case 2:
-        return situationForm;
-      default:
-        return personalForm;
-    }
-  };
-
-  const handleNext = async () => {
-    const currentForm = getCurrentForm();
-    const isValid = await currentForm.trigger();
-    
-    if (isValid) {
-      const formData = currentForm.getValues();
-      
-      switch (formState.currentStep) {
-        case 0:
-          updatePersonalData(formData as PersonalInfo);
-          break;
-        case 1:
-          updateFamilyData(formData as FamilyFinancialInfo);
-          break;
-        case 2:
-          updateSituationData(formData as SituationDescriptions);
-          break;
+  const handleFormSubmit = async () => {
+    setIsSubmitting(true);
+    try {
+      const result = await handleSubmit();
+      if (result.success && result.referenceNumber) {
+        onSuccess(result.referenceNumber);
       }
-      
-      nextStep();
-    }
-  };
-
-  const handlePrevious = () => {
-    previousStep();
-  };
-
-  const handleSubmit = async () => {
-    const isValid = await situationForm.trigger();
-    if (isValid) {
-      const formData = situationForm.getValues();
-      updateSituationData(formData);
-      
-      try {
-        const result = await submitForm();
-        if (result.success && result.referenceNumber) {
-          onSuccess(result.referenceNumber);
-        }
-      } catch (error) {
-        console.error('Form submission error:', error);
-      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   const handleSuggestionAccept = (text: string) => {
     if (isPopupOpen && suggestion && currentField) {
-      situationForm.setValue(currentField as keyof SituationDescriptions, text);
-      updateSituationData({ [currentField]: text } as Partial<SituationDescriptions>);
+      // Apply suggestion to the current step's form
+      switch (currentStep) {
+        case 0:
+          personalForm.setValue(currentField as any, text);
+          break;
+        case 1:
+          familyForm.setValue(currentField as any, text);
+          break;
+        case 2:
+          situationForm.setValue(currentField as any, text);
+          break;
+      }
     }
     clearSuggestion();
   };
@@ -119,13 +69,8 @@ export const FormWizard: React.FC<FormWizardProps> = ({ onSuccess }) => {
     clearSuggestion();
   };
 
-  const canProceed = () => {
-    const currentForm = getCurrentForm();
-    return currentForm.formState.isValid;
-  };
-
   const renderCurrentStep = () => {
-    switch (formState.currentStep) {
+    switch (currentStep) {
       case 0:
         return <PersonalInfoStep form={personalForm} />;
       case 1:
@@ -150,7 +95,7 @@ export const FormWizard: React.FC<FormWizardProps> = ({ onSuccess }) => {
           <h1 className="text-3xl font-bold text-gray-900">
             Social Support Application
           </h1>
-          <ProgressBar currentStep={formState.currentStep} totalSteps={3} />
+          <ProgressBar currentStep={currentStep} totalSteps={3} />
         </div>
         
         <nav className="flex space-x-8 mb-6" aria-label="Progress">
@@ -158,12 +103,12 @@ export const FormWizard: React.FC<FormWizardProps> = ({ onSuccess }) => {
             <div
               key={step}
               className={`flex items-center ${
-                index <= formState.currentStep ? 'text-primary-600' : 'text-gray-400'
+                index <= currentStep ? 'text-primary-600' : 'text-gray-400'
               }`}
             >
               <div
                 className={`flex items-center justify-center w-8 h-8 rounded-full border-2 ${
-                  index <= formState.currentStep
+                  index <= currentStep
                     ? 'border-primary-600 bg-primary-600 text-white'
                     : 'border-gray-300'
                 }`}
@@ -182,13 +127,13 @@ export const FormWizard: React.FC<FormWizardProps> = ({ onSuccess }) => {
           
           <div className="mt-8 pt-6 border-t">
             <StepNavigation
-              currentStep={formState.currentStep}
+              currentStep={currentStep}
               totalSteps={3}
               onNext={handleNext}
               onPrevious={handlePrevious}
-              onSubmit={handleSubmit}
+              onSubmit={handleFormSubmit}
               canProceed={canProceed()}
-              isSubmitting={formState.isSubmitting}
+              isSubmitting={isSubmitting}
             />
           </div>
         </form>
@@ -200,6 +145,13 @@ export const FormWizard: React.FC<FormWizardProps> = ({ onSuccess }) => {
         onAccept={handleSuggestionAccept}
         onDiscard={handleSuggestionDiscard}
         onClose={closePopup}
+      />
+
+      <RestoreProgressModal
+        isOpen={showRestoreModal}
+        onRestore={handleRestoreProgress}
+        onStartFresh={handleStartFresh}
+        lastSavedDate={new Date()}
       />
     </div>
   );
