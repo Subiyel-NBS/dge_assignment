@@ -12,7 +12,7 @@ import {
 import HttpClient from "../services/HttpClient";
 
 const httpClient = new HttpClient({
-  baseURL: "http://localhost:5000",
+  baseURL: process.env.REACT_APP_API_BASE_URL || "http://localhost:5000",
   timeout: 30000,
 });
 
